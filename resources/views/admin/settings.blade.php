@@ -4,6 +4,10 @@
 <div class="container mt-5">
     <h2>Pesepay Payment Gateway Settings</h2>
 
+    @if(session('error'))
+    <div class="alert alert-danger">{{ session('error') }}</div>
+@endif
+
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
