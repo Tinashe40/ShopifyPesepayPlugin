@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\MerchantController;
+use App\Http\Controllers\AdminController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,3 +24,7 @@ Route::get('/return', [PaymentController::class, 'returnHandler']);
 Route::get('/callback', [PaymentController::class, 'callbackHandler']);
 Route::post('/save-keys', [MerchantController::class, 'saveKeys']);
 Route::post('/pay', [PaymentController::class, 'initiatePayment']);
+Route::middleware(['auth.shopify'])->group(function () {
+    Route::get('/settings', [AdminController::class, 'showSettings'])->name('admin.settings');
+    Route::post('/settings', [AdminController::class, 'saveSettings']);
+});

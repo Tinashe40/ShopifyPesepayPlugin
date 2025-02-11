@@ -8,7 +8,7 @@ use App\Models\Merchant;
 use Codevirtus\Payments\Pesepay;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
-
+use App\Http\Controllers\AdminController;
 class PaymentController extends Controller
 {
     /**
