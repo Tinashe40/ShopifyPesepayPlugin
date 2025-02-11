@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\MerchantController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,3 +19,7 @@ Route::get('/', function () {
 });
 */
 Route::post('/payment/initiate', [PaymentController::class, 'initiatePayment']);
+Route::get('/return', [PaymentController::class, 'returnHandler']);
+Route::get('/callback', [PaymentController::class, 'callbackHandler']);
+Route::post('/save-keys', [MerchantController::class, 'saveKeys']);
+Route::post('/pay', [PaymentController::class, 'initiatePayment']);

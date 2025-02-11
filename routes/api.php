@@ -23,3 +23,6 @@ use App\Http\Controllers\PaymentController;
 
 Route::post('/save-keys', [MerchantController::class, 'saveKeys']);
 Route::post('/pay', [PaymentController::class, 'initiatePayment']);
+Route::get('/return', [PaymentController::class, 'returnHandler']);
+Route::get('/callback', [PaymentController::class, 'callbackHandler']);
+Route::post('/payment/webhook', [PaymentController::class, 'paymentWebhook']);
