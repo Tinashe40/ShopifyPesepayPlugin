@@ -69,6 +69,7 @@ class Kernel extends HttpKernel
 
     protected $routeMiddleware = [
         'cors' => \App\Http\Middleware\Cors::class,
+        'auth.shopify' => \App\Http\Middleware\AuthenticateShopify::class,
     ];
 
 }
