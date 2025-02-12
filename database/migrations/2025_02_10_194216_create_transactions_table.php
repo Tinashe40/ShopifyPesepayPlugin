@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->decimal('amount', 10, 2);
             $table->string('currency');
             $table->string('order_id');
-            $table->string('status')->default('PENDING');
+            $table->enum('status', ['PENDING', 'SUCCESS', 'FAILED'])->default('PENDING');
             $table->timestamps();
         });
     }
