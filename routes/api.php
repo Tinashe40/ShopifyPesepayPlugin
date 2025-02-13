@@ -1,8 +1,16 @@
 <?php
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\WebhookController;
-use Illuminate\Support\Facades\Route;
 
-Route::post('/payment/initiate', [PaymentController::class, 'initiatePayment']);
-Route::post('/webhook', [WebhookController::class, 'handlePesepayWebhook']);
+Route::prefix('v1')->group(function () {
+
+    // Payment initiation endpoint
+    Route::post('/payment/initiate', [PaymentController::class, 'initiatePayment']);
+
+    // Pesepay Webhook endpoint
+    Route::post('/webhook', [WebhookController::class, 'handlePesepayWebhook']);
+
+});
