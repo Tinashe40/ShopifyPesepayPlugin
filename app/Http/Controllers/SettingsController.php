@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Merchant;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class SettingsController extends Controller
 {
@@ -23,14 +24,18 @@ class SettingsController extends Controller
      * Save or update PesePay credentials.
      */
     public function saveSettings(Request $request)
-    {
-        $request->validate([
-            'shopify_store' => 'required|string',
-            'pesepay_integration_key' => 'required|string',
-            'pesepay_encryption_key' => 'required|string',
-        ]);
+{
+    Log::info('Saving PesePay Settings:', $request->all());
 
-        $merchant = Merchant::updateOrCreate(
+    $request->validate([
+        'shopify_store' => 'required|string',
+        'pesepay_integration_key' => 'required|string',
+        'pesepay_encryption_key' => 'required|string',
+    ]);
+
+    try {
+        // Store or update merchant API keys
+        Merchant::updateOrCreate(
             ['shopify_store' => $request->shopify_store],
             [
                 'pesepay_integration_key' => $request->pesepay_integration_key,
@@ -39,5 +44,10 @@ class SettingsController extends Controller
         );
 
         return redirect()->back()->with('success', 'PesePay settings saved successfully!');
+    } catch (\Exception $e) {
+        Log::error('Error saving PesePay settings', ['error' => $e->getMessage()]);
+        return redirect()->back()->with('error', 'Failed to save settings.');
     }
+}
+
 }
